@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "name": "we-snore",
+  "private": true,
+  "scripts": {
+    "test": "node test/engine.test.mjs",
+    "start": "python3 -m http.server 8765"
+  },
+  "license": "MIT"
+}

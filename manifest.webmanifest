@@ -1,0 +1,10 @@
+{
+  "name": "We Snore™",
+  "short_name": "We Snore",
+  "description": "Finds out who in the room is actually snoring.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#070a1c",
+  "theme_color": "#070a1c",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

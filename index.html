@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070a1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>We Snore™</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+:root { --bg:#070a1c; --card:#111638; --line:#262d63; --ink:#eef0ff; --mute:#8f96c8; --gold:#ffd98a; --accent:#8fd8ff; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { background:var(--bg); }
+body { margin:0; min-height:100dvh; color:var(--ink); font:16px/1.45 ui-rounded,"SF Pro Rounded","Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(1px 1px at 12% 18%,#fff9,transparent 60%), radial-gradient(1px 1px at 78% 9%,#fff8,transparent 60%),
+    radial-gradient(1.5px 1.5px at 62% 31%,#fff6,transparent 60%), radial-gradient(1px 1px at 30% 44%,#fff5,transparent 60%),
+    radial-gradient(1px 1px at 88% 52%,#fff6,transparent 60%), radial-gradient(1.5px 1.5px at 8% 67%,#fff4,transparent 60%),
+    radial-gradient(1px 1px at 48% 8%,#fff7,transparent 60%), radial-gradient(1px 1px at 92% 83%,#fff4,transparent 60%),
+    radial-gradient(900px 520px at 50% -8%,#222a78 0%,transparent 70%), var(--bg);
+  background-attachment:fixed; }
+main { max-width:480px; margin:0 auto; padding:calc(22px + env(safe-area-inset-top)) 18px calc(40px + env(safe-area-inset-bottom)); }
+main[hidden] { display:none; }
+h1,h2,h3,p { margin:0; }
+button { font:inherit; color:inherit; border:0; cursor:pointer; border-radius:16px; }
+button:active { transform:scale(.98); }
+.hero { text-align:center; padding:26px 0 22px; }
+.moon { width:104px; height:104px; margin:0 auto 18px; border-radius:50%; position:relative;
+  background:radial-gradient(circle at 35% 35%,#fff3c9,var(--gold) 60%,#e2a94e); box-shadow:0 0 70px #ffd98a55, inset -14px -10px 0 #0002; }
+.moon::before,.moon::after { content:""; position:absolute; border-radius:50%; background:#0000001c; }
+.moon::before { width:22px; height:22px; left:24px; top:52px; } .moon::after { width:13px; height:13px; left:58px; top:26px; }
+.zz { position:absolute; right:-34px; top:-10px; font-weight:900; color:var(--accent); font-size:26px; animation:zz 3s ease-in-out infinite; }
+.zz b { font-size:17px; position:relative; top:-14px; left:2px; opacity:.8; } .zz i { font-size:12px; font-style:normal; position:relative; top:-26px; left:3px; opacity:.6; }
+@keyframes zz { 0%,100% { transform:translate(0,4px); opacity:.6 } 50% { transform:translate(6px,-6px); opacity:1 } }
+h1 { font-size:44px; letter-spacing:-1.5px; font-weight:900; line-height:1; }
+h1 sup { font-size:15px; color:var(--mute); font-weight:700; letter-spacing:0; }
+.tag { color:var(--mute); margin-top:10px; font-size:17px; }
+.card { background:linear-gradient(180deg,#151b46,var(--card)); border:1px solid var(--line); border-radius:22px; padding:16px 18px; margin-top:14px; }
+.card h3 { font-size:13px; text-transform:uppercase; letter-spacing:1.2px; color:var(--mute); font-weight:800; margin-bottom:10px; }
+.stepper { display:flex; align-items:center; justify-content:space-between; }
+.stepper button { width:46px; height:46px; border-radius:50%; background:#232a66; font-size:24px; font-weight:800; }
+.stepper .num { text-align:center; } .stepper .num b { font-size:30px; display:block; line-height:1.1; } .stepper .num span { color:var(--mute); font-size:13px; }
+.primary { display:block; width:100%; margin-top:16px; padding:19px; font-size:20px; font-weight:900; color:#1b1440;
+  background:linear-gradient(135deg,#ffe6a8,#ffb86b); box-shadow:0 10px 34px #ffb86b40; border-radius:20px; }
+.row { display:flex; gap:10px; margin-top:10px; }
+.ghost { flex:1; padding:14px 10px; background:#1a2054; border:1px solid var(--line); font-weight:700; font-size:15px; }
+.tips { color:var(--mute); font-size:14px; padding-left:18px; margin:0; } .tips li { margin:5px 0; } .tips b { color:var(--ink); }
+.night { display:flex; gap:12px; align-items:center; width:100%; text-align:left; background:none; padding:10px 0; border-top:1px solid var(--line); border-radius:0; }
+.night:first-of-type { border-top:0; } .night .d { font-weight:800; white-space:nowrap; } .night .h { color:var(--mute); font-size:14px; flex:1; }
+.fine { color:var(--mute); font-size:12.5px; margin-top:18px; text-align:center; }
+
+/* live */
+.topline { display:flex; justify-content:space-between; align-items:baseline; color:var(--mute); font-weight:700; }
+#clock { font-size:20px; color:var(--ink); }
+.orbwrap { text-align:center; padding:26px 0 18px; }
+#orb { width:120px; height:120px; margin:0 auto; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff3c9,var(--gold) 60%,#e2a94e);
+  box-shadow:0 0 calc(40px + var(--lv,0)*90px) calc(var(--lv,0)*26px) #ffd98a66; transform:scale(calc(1 + var(--lv,0)*.35)); transition:transform .08s linear; }
+#status { margin-top:26px; font-size:19px; font-weight:800; } #sub { color:var(--mute); font-size:14px; min-height:20px; }
+.scope { border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#0b1030; }
+.scope canvas { display:block; width:100%; } #spec { height:150px; } #lane { height:16px; background:#0a0e28; }
+.scope .cap { display:flex; justify-content:space-between; font-size:11px; color:var(--mute); padding:5px 10px; }
+#chips { display:flex; flex-direction:column; gap:8px; margin-top:14px; min-height:60px; }
+.chip { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:16px; background:var(--card); border:1px solid var(--line); border-left:5px solid var(--c); }
+.chip .e { font-size:22px; } .chip .n { font-weight:800; flex:1; } .chip .v { color:var(--mute); font-size:14px; font-variant-numeric:tabular-nums; }
+#dim { position:fixed; inset:0; background:#000; z-index:9; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#2b2f4d; gap:8px; }
+#dim[hidden] { display:none; } #dimclock { font-size:54px; font-weight:800; }
+
+/* report */
+.eyebrow { color:var(--mute); font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:1px; }
+#headline { font-size:31px; line-height:1.12; font-weight:900; letter-spacing:-.6px; margin:8px 0 16px; }
+#h2h { display:flex; height:46px; border-radius:14px; overflow:hidden; gap:3px; }
+#h2h div { display:flex; align-items:center; justify-content:center; font-weight:900; color:#10132e; background:var(--c); min-width:44px; white-space:nowrap; overflow:hidden; font-size:15px; }
+.pcard { border-top:5px solid var(--c); }
+.phead { display:flex; align-items:center; gap:10px; }
+.phead .e { font-size:34px; }
+.pname { flex:1; min-width:0; font:inherit; font-size:22px; font-weight:900; color:var(--ink); background:none; border:0; border-bottom:2px dashed #ffffff30; padding:2px 0; outline:0; border-radius:0; }
+.pname:focus { border-bottom-color:var(--c); }
+.score { text-align:center; font-size:30px; font-weight:900; color:var(--c); line-height:1; } .score small { display:block; font-size:10px; color:var(--mute); text-transform:uppercase; letter-spacing:1px; margin-top:3px; }
+.hint { color:var(--mute); font-size:12.5px; margin:6px 0 12px; }
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.stat { background:#0c1130; border-radius:14px; padding:10px 12px; } .stat b { display:block; font-size:19px; } .stat span { color:var(--mute); font-size:12.5px; }
+.play { width:100%; margin-top:10px; padding:12px; background:color-mix(in srgb,var(--c) 22%,#111638); font-weight:800; border:1px solid color-mix(in srgb,var(--c) 50%,transparent); }
+#tl { display:flex; align-items:flex-end; height:110px; gap:1px; }
+#tl .b { flex:1; height:100%; display:flex; flex-direction:column-reverse; background:#0c1130; border-radius:2px; overflow:hidden; }
+.axis { display:flex; justify-content:space-between; color:var(--mute); font-size:12px; margin-top:6px; }
+.legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; font-size:13px; } .legend i { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:5px; }
+.award { display:flex; gap:12px; align-items:center; padding:9px 0; border-top:1px solid var(--line); } .award:first-of-type { border-top:0; }
+.award .e { font-size:28px; } .award b { display:block; } .award span { color:var(--mute); font-size:14px; }
+#toast { pointer-events:none; position:fixed; left:50%; bottom:calc(26px + env(safe-area-inset-bottom)); transform:translateX(-50%); background:#fff; color:#111; padding:11px 18px; border-radius:99px; font-weight:700; font-size:14px; z-index:20; max-width:88vw; text-align:center; box-shadow:0 8px 30px #0008; }
+#toast[hidden] { display:none; }
+</style>
+</head>
+<body>
+
+<main id="home">
+  <div class="hero">
+    <div class="moon"><span class="zz">Z<b>z</b><i>z</i></span></div>
+    <h1>We Snore<sup>™</sup></h1>
+    <p class="tag">One phone. Everyone in the room.<br>Finally, proof of who it was.</p>
+  </div>
+  <div class="card">
+    <h3>Who's sleeping in the room?</h3>
+    <div class="stepper">
+      <button id="less" aria-label="Fewer sleepers">−</button>
+      <div class="num"><b id="sleepers">2</b><span id="sleepnote">suspects</span></div>
+      <button id="more" aria-label="More sleepers">+</button>
+    </div>
+  </div>
+  <button class="primary" id="start">Start the night</button>
+  <div class="row">
+    <button class="ghost" id="demo">▶ Watch a demo night</button>
+    <button class="ghost" id="pick">Analyze a recording</button>
+    <input type="file" id="file" accept="audio/*,video/mp4" hidden>
+  </div>
+  <div class="card">
+    <h3>For a fair trial</h3>
+    <ul class="tips">
+      <li><b>Plug the phone in</b> and leave this page open. It keeps the screen awake and dims itself.</li>
+      <li>Put it on a nightstand, <b>closer to one sleeper</b> than the other. Loudness is a clue.</li>
+      <li>In the morning, <b>listen to each snorer's samples</b> and put a name on them. We Snore remembers their snoreprint for next time.</li>
+      <li>Audio never leaves this device.</li>
+    </ul>
+  </div>
+  <div class="card" id="historyCard" hidden>
+    <h3>Past nights</h3>
+    <div id="history"></div>
+  </div>
+</main>
+
+<main id="live" hidden>
+  <div class="topline"><span id="clock"></span><span id="elapsed"></span></div>
+  <div class="orbwrap">
+    <div id="orb"></div>
+    <div id="status">Listening…</div>
+    <div id="sub"></div>
+  </div>
+  <div class="scope">
+    <canvas id="spec" width="360" height="128"></canvas>
+    <canvas id="lane" width="360" height="12"></canvas>
+    <div class="cap"><span>live spectrum · 60 Hz – 4 kHz</span><span>who's snoring ▲</span></div>
+  </div>
+  <div id="chips"></div>
+  <button class="primary" id="stop">Wake up &amp; see the verdict</button>
+  <div id="dim" hidden><div id="dimclock"></div><div>listening · tap to wake the screen</div></div>
+</main>
+
+<main id="report" hidden>
+  <p class="eyebrow" id="when"></p>
+  <h2 id="headline"></h2>
+  <div id="h2h"></div>
+  <div id="people"></div>
+  <div class="card" id="tlCard">
+    <h3>The night, minute by minute</h3>
+    <div id="tl"></div>
+    <div class="axis" id="axis"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="card" id="awardsCard">
+    <h3>Awards ceremony</h3>
+    <div id="awards"></div>
+  </div>
+  <button class="primary" id="share">Share the evidence</button>
+  <div class="row"><button class="ghost" id="done">Done</button></div>
+  <p class="fine">Snorers are told apart by the spectral shape, pitch and loudness of each snore, then grouped. Two people snoring in the very same breath get credited to the louder one. Loudness is relative to the room's quiet, not calibrated dB. This is for settling arguments, not diagnosing sleep apnea.</p>
+</main>
+
+<div id="toast" hidden></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
